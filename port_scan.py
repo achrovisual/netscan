@@ -1,5 +1,12 @@
 import socket, re
-from scapy.all import *
+
+try:
+    from scapy.all import *
+except ImportError:
+    print("Scapy library for Python is not installed on your system.")
+    print("Follow the instructions on https://scapy.readthedocs.io/en/latest/installation.html to isntall Scapy.")
+    exit(0)
+
 
 src_ip = get_if_addr(conf.iface)
 
