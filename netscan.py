@@ -9,8 +9,8 @@ logging.getLogger("scappy.loading").setLevel(logging.ERROR)
 try:
     from scapy.all import *
 except ImportError:
-    print("Scapy library for Python is not installed on your system.")
-    print("Follow the instructions on https://scapy.readthedocs.io/en/latest/installation.html to isntall Scapy.")
+    print("Scapy library for Python is not installed on your system. Run 'pip install --pre scapy[basic]' to install the library.")
+    print("For more information, visit https://scapy.readthedocs.io/en/latest/installation.html to isntall Scapy.")
     exit(0)
 
 def main():
