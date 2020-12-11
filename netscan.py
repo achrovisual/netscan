@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 
-import argparse, time, scanner, ipv4
+import argparse, time, scanner, ipv4, logging
+
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+logging.getLogger("scappy.interactive").setLevel(logging.ERROR)
+logging.getLogger("scappy.loading").setLevel(logging.ERROR)
+
+try:
+    from scapy.all import *
+except ImportError:
+    print("Scapy library for Python is not installed on your system.")
+    print("Follow the instructions on https://scapy.readthedocs.io/en/latest/installation.html to isntall Scapy.")
+    exit(0)
 
 def main():
     start = time.time()
