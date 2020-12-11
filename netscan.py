@@ -2,8 +2,6 @@
 
 import argparse, time, port_scan
 
-src_ip = get_if_addr(conf.iface)
-
 def main():
     start = time.time()
     # Arg Parsing
@@ -45,7 +43,7 @@ def main():
         flags = 'A'
         flag = 0x4
 
-    if is_up(ip):
+    if port_scan.is_up(ip):
         response = port_scan.probe_port(ip, int(port), flags, flag, type)
         if response == 1:
             openp = port

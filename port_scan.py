@@ -1,6 +1,8 @@
 import socket, re
 from scapy.all import *
 
+src_ip = get_if_addr(conf.iface)
+
 def is_up(ip):
     icmp = IP(dst=ip)/ICMP()
     resp = sr1(icmp, timeout=10, verbose = 0)
