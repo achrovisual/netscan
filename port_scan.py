@@ -45,12 +45,14 @@ def probe_port(ip, port, flags, flag, scan_type, result = 1):
                     send_rst = sr(IP(dst=ip)/TCP(sport=src_port, dport=port, flags='R'), timeout = 2, verbose = 0)
                     print(src_ip + ' > RST > ' + ip)
                 elif scan_type == 1:
-                    send_ack = send(IP(dst=ip)/TCP(sport=src_port, dport=port, flags='A', ack = resp.seq + 1, seq = resp.ack + 1), verbose = 0)
-                    print(src_ip + ' > ACK > ' + ip)
+                    send_ack = send(IP(dst=ip)/TCP(sport=src_port, dport=port, flags='AR', ack = resp.seq + 1, seq = resp.ack + 1), verbose = 0)
+                    print(src_ip + ' > ACK, RST > ' + ip)
                 result = 1
             elif resp.getlayer(TCP).flags == flag:
-                if flag == 0x14:
+                if flag == 0x14 and scan_type == 1:
                     print(src_ip + ' < RST, ACK < ' + ip)
+                elif flag == 0x14:
+                    print(src_ip + ' < RST < ' + ip)
                 elif flag == 0x4:
                     print(src_ip + ' < RST < ' + ip)
                 result = 0
