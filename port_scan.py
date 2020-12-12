@@ -1,4 +1,4 @@
-import socket, re
+import socket, re, sys
 
 try:
     from scapy.all import *
@@ -50,7 +50,7 @@ def probe_port(ip, port, flags, flag, scan_type, result = 1):
                 result = 1
             elif resp.getlayer(TCP).flags == flag:
                 if flag == 0x14 and scan_type == 1:
-                    print(src_ip + ' < RST, ACK < ' + ip)
+                    print(src_ip + ' < RST < ' + ip)
                 elif flag == 0x14:
                     print(src_ip + ' < RST < ' + ip)
                 elif flag == 0x4:

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-import argparse, time, scanner, ipv4, logging
+import argparse, time, scanner, ipv4, logging, sys
+from threading import Thread
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 logging.getLogger("scappy.interactive").setLevel(logging.ERROR)
@@ -86,5 +87,12 @@ def main():
             print('\nCompleted scan in ' + str(round((end - start), 4)) + 's.')
         else:
             print('\nScan complete.')
+
 if __name__ == '__main__':
-    main()
+    try:
+        t = Thread(target=main)
+        t.daemon = True
+        t.start()
+        while True: time.sleep(100)
+    except KeyboardInterrupt as e:
+        sys.exit(0)
