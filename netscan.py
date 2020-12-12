@@ -37,6 +37,14 @@ def main():
     args = parser.parse_args()
 
     if args.v:
+        print("""
+███╗░░██╗███████╗████████╗░██████╗░█████╗░░█████╗░███╗░░██╗
+████╗░██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗██╔══██╗████╗░██║
+██╔██╗██║█████╗░░░░░██║░░░╚█████╗░██║░░╚═╝███████║██╔██╗██║
+██║╚████║██╔══╝░░░░░██║░░░░╚═══██╗██║░░██╗██╔══██║██║╚████║
+██║░╚███║███████╗░░░██║░░░██████╔╝╚█████╔╝██║░░██║██║░╚███║
+╚═╝░░╚══╝╚══════╝░░░╚═╝░░░╚═════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░╚══╝
+""")
         print("netscan by Eugenio Pastoral\n")
         print("netscan is a TCP port scanning and ping sweep tool that uses Scapy to craft and send out appropriate packets. It can detect open, closed, filtered, and unfiltered ports. It can also detect live hosts.\n")
         print("NOTE: In order to ensure that the program is going to work correctly, please install the latest version of Scapy.")
