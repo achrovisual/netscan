@@ -19,7 +19,7 @@ def main():
     # Arg Parsing
     parser = argparse.ArgumentParser(description = '', formatter_class = argparse.RawTextHelpFormatter)
 
-    parser.add_argument("H",  help = "Target Host IP or URL")
+    parser.add_argument("H", nargs="?", help = "Target Host IP or URL")
     parser.add_argument("-p", "--p", help = "Target Port")
     parser.add_argument("-i", "--i", action = 'store_true', help = "Perform Ping Sweep")
     parser.add_argument("-c", "--c", help = "Number of ICMP ECHO Requests to be sent for Ping Sweep", type = int)
@@ -31,53 +31,60 @@ def main():
     parser.add_argument("-a", "--a", action = 'store_true', help = "Perform TCP ACK Scan")
     parser.add_argument("-ALL", "--ALL", action = 'store_true', help = "Perform ALL TCP Port Scans")
     parser.add_argument("-T", "--T", action = 'store_true', help = "Show time spent to compelete the scan")
+    parser.add_argument("-v", "--v", action = 'store_true', help = "Show program description")
 
     args = parser.parse_args()
-    ip = args.H
-    end = 2
 
-    if args.i:
-        end = 1
-    elif args.t:
-        type = 1
-    elif args.s:
-        type = 2
-    elif args.x:
-        type = 3
-    elif args.f:
-        type = 4
-    elif args.n:
-        type = 5
-    elif args.a:
-        type = 6
-    elif args.ALL:
-        end = 7
-    port = args.p
+    if args.v:
+        print("netscan by Eugenio Pastoral\n")
+        print("netscan is a TCP port scanning and ping sweep tool that uses Scapy to craft and send out appropriate packets. It can detect open, closed, filtered, and unfiltered ports. It can also detect live hosts.\n")
+        print("NOTE: In order to ensure that the program is going to work correctly, please install the latest version of Scapy.")
+    else:
+        ip = args.H
+        end = 2
 
-    if not ipv4.validate_ip(ip):
-        print('\nIP address is invalid. Please try again.')
-        parser.print_help()
-        exit(0)
+        if args.i:
+            end = 1
+        elif args.t:
+            type = 1
+        elif args.s:
+            type = 2
+        elif args.x:
+            type = 3
+        elif args.f:
+            type = 4
+        elif args.n:
+            type = 5
+        elif args.a:
+            type = 6
+        elif args.ALL:
+            end = 7
+        port = args.p
 
-    # Check args present and set variables
-    if not args.i:
-        if (port == None):
-            print('\nPlease specify a valid port to perform a port scan.')
+        if not ipv4.validate_ip(ip):
+            print('\nIP address is missing or invalid. Please try again.')
             parser.print_help()
             exit(0)
 
-    if args.i:
-        scanner.ping(ip, args.c)
+        # Check args present and set variables
+        if not args.i:
+            if (port == None):
+                print('\nPlease specify a valid port to perform a port scan.')
+                parser.print_help()
+                exit(0)
 
-    for type in range (1, end):
-        scanner.portscan(ip, port, type)
-        print('\n=============================================')
+        if args.i:
+            scanner.ping(ip, args.c)
 
-    end = time.time()
+        for type in range (1, end):
+            scanner.portscan(ip, port, type)
+            print('\n=============================================')
 
-    if args.T:
-        print('\nCompleted scan in ' + str(round((end - start), 4)) + 's.')
-    else:
-        print('\nScan complete.')
+        end = time.time()
+
+        if args.T:
+            print('\nCompleted scan in ' + str(round((end - start), 4)) + 's.')
+        else:
+            print('\nScan complete.')
 if __name__ == '__main__':
     main()
