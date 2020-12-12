@@ -75,7 +75,10 @@ def main():
                 exit(0)
 
         if args.i:
-            scanner.ping(ip, args.c)
+            if args.c == None:
+                scanner.ping(ip, 10)
+            else:
+                scanner.ping(ip, args.c)
 
         for type in range (1, end):
             scanner.portscan(ip, port, type)
