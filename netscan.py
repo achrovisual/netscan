@@ -42,7 +42,6 @@ def main():
         print("NOTE: In order to ensure that the program is going to work correctly, please install the latest version of Scapy.")
     else:
         ip = args.H
-        end = 2
 
         if args.i:
             end = 1
@@ -80,9 +79,12 @@ def main():
             else:
                 scanner.ping(ip, args.c)
 
-        for type in range (1, end):
-            scanner.portscan(ip, port, type)
-            print('\n=============================================')
+        if args.ALL:
+            for type in range (1, 7):
+                scanner.portscan(ip, port, type)
+                print('\n=============================================')
+        elif args.ALL != True and args.i != True:
+                scanner.portscan(ip, port, type)
 
         end = time.time()
 
@@ -96,6 +98,6 @@ if __name__ == '__main__':
         t = Thread(target=main)
         t.daemon = True
         t.start()
-        while True: time.sleep(100)
+        t.join()
     except KeyboardInterrupt as e:
         sys.exit(0)

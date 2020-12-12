@@ -1,4 +1,4 @@
-import port_scan
+import port_scan, sys
 
 def portscan(ip, port, type):
     flag, flags = parse_type(ip, port, type)
