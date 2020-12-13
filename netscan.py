@@ -58,6 +58,7 @@ def main():
     else:
         ip = args.H
         type = None
+        end = None
         try:
             if args.t:
                 if type != None:
@@ -88,8 +89,9 @@ def main():
                     raise Exception()
                 type = 0
                 end = 7
-            if args.i or args.c != None:
-                if type != None or end == 7:
+            if args.i:
+                type = 0
+                if type != None and end != None:
                     raise Exception()
         except Exception as e:
             print('\nInvalid argument combination supplied. Try again.')
