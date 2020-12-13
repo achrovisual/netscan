@@ -1,3 +1,6 @@
+# Author: Eugenio Pastoral
+# Course: Advanced and Offensive Security
+
 #!/usr/bin/env python3
 
 import argparse, time, scanner, ipv4, logging, sys
