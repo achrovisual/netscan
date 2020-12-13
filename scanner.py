@@ -102,4 +102,4 @@ def ping(ip, n):
     # Send n ICMP ECHO requests.
     for i in range(n):
         if port_scan.is_up(ip):
-            print(ip + ' is alive.')
+            print('[' + (i + 1) + ']' + ip + ' is alive.')
