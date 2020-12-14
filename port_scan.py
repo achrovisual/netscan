@@ -26,7 +26,7 @@ def is_up(ip):
     icmp = IP(dst=ip)/ICMP()
 
     # Send out the packet and wait for the response.
-    resp = sr1(icmp, timeout=10, verbose = 0)
+    resp = sr1(icmp, timeout = 2, verbose = 0)
 
     # If there's no response, return false.
     if resp == None:

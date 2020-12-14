@@ -141,11 +141,12 @@ def main():
             headers = ["IP Address", "Port", "ICMP", "Connect", "SYN", "XMAS", "FIN", "NULL", "ACK"]
             results.append(ip)
             results.append(port)
-            if scanner.ping(ip, 10, False):
+
+            if scanner.ping(ip, 3, False):
                 results.append("↑")
             else:
                 results.append("↓")
-
+                
             for type in range (1, 7):
                 result = scanner.portscan(ip, port, type, False)
                 results.append(result)
