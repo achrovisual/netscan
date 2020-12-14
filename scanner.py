@@ -9,53 +9,55 @@ def portscan(ip, port, type):
     # Get the type and set the appropriate flags to be set in the packet.
     flag, flags = parse_type(ip, port, type)
 
-    # Check if the target host is alive.
-    if port_scan.is_up(ip):
-        # Send a TCP packet based on the flags from the previous line. The return value will determine if it's open, closed, filtered, unfiltered.
-        response = port_scan.probe_port(ip, int(port), flags, flag, type)
+    # # Check if the target host is alive.
+    # if port_scan.is_up(ip):
+    # Send a TCP packet based on the flags from the previous line. The return value will determine if it's open, closed, filtered, unfiltered.
+    response = port_scan.probe_port(ip, int(port), flags, flag, type)
 
-        # If the return value is 1, it is open.
-        if response == 1:
-            openp = port
-            filterdp = ''
+    # If the return value is 1, it is open.
+    if response == 1:
+        openp = port
+        filterdp = ''
 
-        # If the return value is 2, it is filtered.
-        elif response == 2:
-            filterdp = port
-            openp = ''
+    # If the return value is 2, it is filtered.
+    elif response == 2:
+        filterdp = port
+        openp = ''
 
-        # Otherwise, it closed or unfiltered.
-        else:
-            filterdp, openp = '', ''
-
-        # If the scanning mode is TCP Connect Scan, print the following messages.
-        if type == 1:
-            if response == 1:
-                print('\n' + port + " is open.")
-            else:
-                print('\n' + port + " is closed.")
-
-        # If the scanning mode is TCP SYN Scan, TCP XMAS Scan, TCP FIN Scan, or TCP NULL Scan, print the following messages.
-        if type == 2 or type == 3 or type == 4 or type == 5:
-            if openp != '':
-                print('\n' + openp + " is possibly open or filtered.")
-            if filterdp != '':
-                print('\n' + filterdp + " is filtered.")
-            if (openp == '') and (filterdp == ''):
-                print('\n' + port + " is closed.")
-
-        # If the scanning mode is TCP ACK Scan, print the following messages.
-        if type == 6:
-            if openp != '':
-                print('\n' + openp + " is filtered by stateful firewall.")
-            if filterdp != '':
-                print('\n' + filterdp + " is filtered by stateful firewall.")
-            if (openp == '') and (filterdp == ''):
-                print('\n' + port + " is not filtered.")
-
-    # Otherwise, the target host is down.
+    # Otherwise, it closed or unfiltered.
     else:
-        print("Host is down.")
+        filterdp, openp = '', ''
+
+    # If the scanning mode is TCP Connect Scan, print the following messages.
+    if type == 1:
+        if response == 1:
+            print('\n' + port + " is open.")
+        elif response == 0:
+            print('\n' + port + " is closed.")
+        else:
+            print('\n' + port + " is filtered.")
+
+    # If the scanning mode is TCP SYN Scan, TCP XMAS Scan, TCP FIN Scan, or TCP NULL Scan, print the following messages.
+    if type == 2 or type == 3 or type == 4 or type == 5:
+        if openp != '':
+            print('\n' + openp + " is possibly open or filtered.")
+        if filterdp != '':
+            print('\n' + filterdp + " is filtered.")
+        if (openp == '') and (filterdp == ''):
+            print('\n' + port + " is closed.")
+
+    # If the scanning mode is TCP ACK Scan, print the following messages.
+    if type == 6:
+        if openp != '':
+            print('\n' + openp + " is filtered by stateful firewall.")
+        if filterdp != '':
+            print('\n' + filterdp + " is filtered by stateful firewall.")
+        if (openp == '') and (filterdp == ''):
+            print('\n' + port + " is not filtered.")
+    #
+    # # Otherwise, the target host is down.
+    # else:
+    #     print("Host is down.")
 
 
 

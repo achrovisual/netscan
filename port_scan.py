@@ -123,6 +123,7 @@ def probe_port(ip, port, flags, flag, scan_type, result = 1):
     # This will occur when a response has not been received.
     except AttributeError as e:
         print('No response')
+        result = 2
         pass
 
     # This will occur when a response has not been received.
