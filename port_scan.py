@@ -124,6 +124,8 @@ def probe_port(ip, port, flags, flag, scan_type, print_flag, result = 1):
                 print('hello')
                 # Return 2 since the port is filtered.
                 result = 2
+        else:
+            raise AttributeError('')
 
     # This will occur when a response has not been received.
     except AttributeError as e:
