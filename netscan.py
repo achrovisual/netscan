@@ -21,7 +21,7 @@ def main():
     start = time.time()
 
     # Arg Parsing
-    parser = argparse.ArgumentParser(description = '', formatter_class = argparse.RawTextHelpFormatter)
+    parser = argparse.ArgumentParser(description = "To perform a Ping Sweep, the syntax is as follows:\n'sudo ptyhon3 netscan.py -i [host] -c [number of packets]'\n\nTo perform a TCP Port Scan, the syntax is as follows:\n'sudo ptyhon3 netscan.py -p [port] -[scaning mode] [host]'", formatter_class = argparse.RawTextHelpFormatter)
 
     THO = parser.add_argument_group('TARGET HOST OPTIONS')
     THO.add_argument("H", nargs="?", help = "Target Host IP or URL")
@@ -146,7 +146,7 @@ def main():
                 results.append("↑")
             else:
                 results.append("↓")
-                
+
             for type in range (1, 7):
                 result = scanner.portscan(ip, port, type, False)
                 results.append(result)
