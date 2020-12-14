@@ -29,7 +29,7 @@ def portscan(ip, port, type):
         filterdp, openp = '', ''
 
     # If the scanning mode is TCP Connect Scan, print the following messages.
-    if type == 1:
+    if type == 1 or type == 2:
         if response == 1:
             print('\n' + port + " is open.")
         elif response == 0:
@@ -38,7 +38,7 @@ def portscan(ip, port, type):
             print('\n' + port + " is filtered.")
 
     # If the scanning mode is TCP SYN Scan, TCP XMAS Scan, TCP FIN Scan, or TCP NULL Scan, print the following messages.
-    if type == 2 or type == 3 or type == 4 or type == 5:
+    if type == 3 or type == 4 or type == 5:
         if openp != '':
             print('\n' + openp + " is possibly open or filtered.")
         if filterdp != '':
