@@ -116,20 +116,23 @@ def probe_port(ip, port, flags, flag, scan_type, result = 1):
 
             # If the response packet is an ICMP packet, check if it has the ICMP error flags.
             elif (int(resp.getlayer(ICMP).type) == 3 and int(resp.getlayer(ICMP).code) in [1, 2, 3, 9, 10, 13]):
-
+                print('hello')
                 # Return 2 since the port is filtered.
                 result = 2
 
     # This will occur when a response has not been received.
     except AttributeError as e:
         print('No response')
-        result = 2
+        if scan_type == 1 or scan_type == 2:
+            result = 2
+        else:
+            result == 1
         pass
 
     # This will occur when a response has not been received.
     except ValueError as e:
         print('No response')
-        result = 0
+        result = 2
 
     # Pass the other errors.
     except Exception as e:
