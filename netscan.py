@@ -128,40 +128,42 @@ def main():
                 scanner.ping(ip, args.c, True)
 
         if args.ALL:
-            print("""
-███╗░░██╗███████╗████████╗░██████╗░█████╗░░█████╗░███╗░░██╗
-████╗░██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗██╔══██╗████╗░██║
-██╔██╗██║█████╗░░░░░██║░░░╚█████╗░██║░░╚═╝███████║██╔██╗██║
-██║╚████║██╔══╝░░░░░██║░░░░╚═══██╗██║░░██╗██╔══██║██║╚████║
-██║░╚███║███████╗░░░██║░░░██████╔╝╚█████╔╝██║░░██║██║░╚███║
-╚═╝░░╚══╝╚══════╝░░░╚═╝░░░╚═════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░╚══╝
-            """)
-
-            print("Performing scan...\n")
-            headers = ["IP Address", "Port", "ICMP", "Connect", "SYN", "XMAS", "FIN", "NULL", "ACK"]
-            results.append(ip)
-            results.append(port)
-
-            if scanner.ping(ip, 3, False):
-                results.append("↑")
-            else:
-                results.append("↓")
-
             for type in range (1, 7):
-                result = scanner.portscan(ip, port, type, False)
-                results.append(result)
+                result = scanner.portscan(ip, port, type, True)
+                print('\n=============================================')
 
-            data = [headers] + [results]
-
-            for i, d in enumerate(data):
-                line = '|'.join(str(x).ljust(15) for x in d)
-                print(line)
-                if i == 0:
-                    print('-' * len(line))
-
-            print('\nLegend:\nICMP\n↑ = Host is up\n↓ = Host is down\n\nTCP\nO = Port is open\nC = Port is closed\nF = Port is filtered\nO|F = Port is possibly open or filtered\nUF = Port is unfiltered')
-
-
+#             print("""
+# ███╗░░██╗███████╗████████╗░██████╗░█████╗░░█████╗░███╗░░██╗
+# ████╗░██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗██╔══██╗████╗░██║
+# ██╔██╗██║█████╗░░░░░██║░░░╚█████╗░██║░░╚═╝███████║██╔██╗██║
+# ██║╚████║██╔══╝░░░░░██║░░░░╚═══██╗██║░░██╗██╔══██║██║╚████║
+# ██║░╚███║███████╗░░░██║░░░██████╔╝╚█████╔╝██║░░██║██║░╚███║
+# ╚═╝░░╚══╝╚══════╝░░░╚═╝░░░╚═════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░╚══╝
+#             """)
+#
+#             print("Performing scan...\n")
+#             headers = ["IP Address", "Port", "ICMP", "Connect", "SYN", "XMAS", "FIN", "NULL", "ACK"]
+#             results.append(ip)
+#             results.append(port)
+#
+#             if scanner.ping(ip, 3, False):
+#                 results.append("↑")
+#             else:
+#                 results.append("↓")
+#
+#             for type in range (1, 7):
+#                 result = scanner.portscan(ip, port, type, False)
+#                 results.append(result)
+#
+#             data = [headers] + [results]
+#
+#             for i, d in enumerate(data):
+#                 line = '|'.join(str(x).ljust(15) for x in d)
+#                 print(line)
+#                 if i == 0:
+#                     print('-' * len(line))
+#
+#             print('\nLegend:\nICMP\n↑ = Host is up\n↓ = Host is down\n\nTCP\nO = Port is open\nC = Port is closed\nF = Port is filtered\nO|F = Port is possibly open or filtered\nUF = Port is unfiltered')
 
         elif args.ALL != True and args.i != True:
             result = scanner.portscan(ip, port, type, True)
